@@ -1,0 +1,53 @@
+{% extends 'doctor1-header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Slot Add</title>
+</head>
+<body><br><hr>
+    <h5 style="color: red;" class="text-center">{{msg}}</h5>
+    <form action="{% url 'slots' %}" method="POST">
+        {% csrf_token %}
+        <label class="col-md-3 label-control" for="projectinput6">Week Slot</label>
+        <div class="col-md-9">
+            <select id="weeks" name="weeks" class="form-control">
+              <option value="0">Monday</option>
+              <option value="1">Tuesday</option>
+              <option value="2">Wednesday</option>
+              <option value="3">Thrusday</option>
+              <option value="4">Friday</option>
+              <option value="5">Saturday</option>
+              <option value="6">Sunday</option>
+              
+            </select>
+          </div>
+    <div class="form-group row">
+        <label class="col-md-3 label-control" for="projectinput6">Time Slot</label>
+        <div class="col-md-9">
+          <select id="timeslot" name="timeslot" class="form-control">
+            <option value="0">09:00 am To 10:00 am</option>
+            <option value="1">10:00 am TO 11:00 am</option>
+            <option value="2">11:00 am To 12:00 am</option>
+            <option value="3">12:00 am To 01:00 pm</option>
+            <option value="4">02:00 pm To 03:00 pm</option>
+            <option value="5">03:00 pm To 04:00 pm</option>
+            <option value="6">04:00 pm To 05:00 pm</option>
+            
+          </select>
+        </div>
+      </div>   
+    
+      <input type="submit" value="Add" class="text-center">
+    </form><strong><hr></strong>
+    
+
+    
+</body>
+</html>
+
+{% endblock %}
