@@ -13,6 +13,7 @@
     <h5 style="color: red;">{{msg}}</h5>
     <table class="table table-striped table-dark">
         <thead>
+          {% if many %}
           <tr>
             <th scope="col">User</th>
             <th scope="col">Phone</th>      
@@ -74,8 +75,13 @@
             {% endif %}
           </tr>
           {% endfor %}
+          {% else %}
+          <p>NO APPOINTMENT TO SHOW!!</p>
+          {% endif %}
+         
           </tbody>
-      </table>
+      </table> 
+
 </body>
 </html>
 

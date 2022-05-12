@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 
 
@@ -22,7 +23,7 @@ class User(models.Model):
     gender = models.CharField(max_length=6)
     speciality = models.CharField(max_length=30,default=None,blank=True,null=True)
     clinic_name=models.CharField(max_length=30,default=None,blank=True,null=True)
-    profile = models.FileField(upload_to='user',default='profile.png')
+    profile = models.ImageField(upload_to='profiles/',blank=True,null=True)
     
     
 
@@ -54,12 +55,12 @@ class Slot(models.Model):
     slotsize=models.IntegerField(default=1)
 
 
+
     def __int__(self):
-        return self.doctor_id
+        return self.doctor_name
 
 class Appointment(models.Model):
     STATUS = (
-        (0,'Pending'),
         (1,'Completed'),
         (2,'Absent'),
         (3,'Canceled'),
@@ -71,6 +72,7 @@ class Appointment(models.Model):
     timeslot = models.IntegerField(null=True,blank=True)
     description = models.TextField(default=None,null=True,blank=True)
     status = models.IntegerField(default=0,choices=STATUS)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
 
     
     # def __str__(self):

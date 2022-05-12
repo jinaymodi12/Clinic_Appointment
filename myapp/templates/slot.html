@@ -13,7 +13,7 @@
     <h5 style="color: red;" class="text-center">{{msg}}</h5>
     <form action="{% url 'slots' %}" method="POST">
         {% csrf_token %}
-        <label class="col-md-3 label-control" for="projectinput6">Week Slot</label>
+        <label class="col-md-3 label-control" for="projectinput6">Weekly Slot</label>
         <div class="col-md-9">
             <select id="weeks" name="weeks" class="form-control">
               <option value="0">Monday</option>
@@ -27,7 +27,7 @@
             </select>
           </div>
     <div class="form-group row">
-        <label class="col-md-3 label-control" for="projectinput6">Time Slot</label>
+        <label class="col-md-3 label-control" for="projectinput6">Available Time Slot</label>
         <div class="col-md-9">
           <select id="timeslot" name="timeslot" class="form-control">
             <option value="0">09:00 am To 10:00 am</option>

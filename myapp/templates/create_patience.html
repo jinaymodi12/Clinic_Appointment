@@ -80,7 +80,7 @@ button:hover {
     </style>
 </head>
 <body>
-    <form action="{% url 'patience_create' %}" method="POST">
+    <form action="{% url 'patience_create' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="container">
           <h1> Patience Sign Up</h1>
@@ -97,21 +97,25 @@ button:hover {
           <label for="psw"><b>Password</b></label>
           <input type="password" placeholder="Enter Password" name="password" required>
 
-          <!-- <label for="email"><b>clinic name</b></label>
-          <input type="text" placeholder="Enter name" name="clinic_name" required> -->
+          <label for="profile"><b>Profile Photo</b></label>
+          <input type="file" multiple style="background-color: rgb(243, 229, 229); padding-left: 20px;" class="form-control" name="profile" id="profile"  required>
+         
 
           <label for="email">Roles<b></b></label>
-          <input type="text" placeholder="Enter role" name="roles" value="patiences" required>
+          <input type="text" placeholder="Enter role" name="roles" value="Patiences" required>
           
-<!-- 
-          <label for="email"><b>Gender</b></label>
-          <input type="text" placeholder="Enter gender" name="gender" required> -->
+
+          <label for="">Gender</label><br>
+          <input type="radio" id="html" name="gender" value="male">
+          <label for="html">Male</label><br>
+          <input type="radio" id="css" name="gender" value="female">
+          <label for="css">Female</label><br><br>
 
           <!-- <label for="email"><b>speciality </b></label>
           <input type="text" placeholder="Enter speciality " name="speciality "id='speciality' required> -->
 
           <label for="email"><b> Address </b></label>
-          <input type="text" placeholder="Enter  address " name="address" required> -->
+          <input type="text" placeholder="Enter  address " name="address" required>
 
                 
 

@@ -77,21 +77,31 @@ button:hover {
     </style>
 </head>
 <body>
-    <form action="{% url 'patience-edit' %}" method="POST">
+    <form action="{% url 'patience-edit' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="container">
           <h1> Patience Edit</h1>
           <hr>
           <h5 style="color: red;" class="text-center">{{msg}}</h5>
+          <div class="col-md-4 border-right">
+            {% if uid.profile %}
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" src="{{uid.profile.url}}" width="90"><span class="font-weight-bold"></div>
+        </div>
+            {% endif %}
       
           <label for="email"><b>Name</b></label>
           <input type="text" placeholder="Enter Name" name="name" value="{{uid.name}}" required>
 
-          <label for="email"><b>Email</b></label>
-          <input type="text" placeholder="Enter Email" name="email" value="{{uid.email}}" required>
+          <label for="email"><b>Email</b></label><br>
+          <input type="email" placeholder="Enter Email" name="email" value="{{uid.email}}" disabled>
+          <p> <strong>Note:</strong>For Email Change Contact Admin</p>
 
           <label for="psw"><b>Password</b></label>
           <input type="text" placeholder="Enter Password" name="password" value="{{uid.password}}" required>
+
+          <label for="profile"><b>Edit Profile Photo</b></label><br>
+          <input type="file" class="form-control" name="profile" id="profile"   required><br><br>
+
 
           <!-- <label for="email"><b>clinic name</b></label>
           <input type="text" placeholder="Enter name" name="clinic_name" required> -->
