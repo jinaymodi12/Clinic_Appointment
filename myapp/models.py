@@ -49,7 +49,7 @@ class Slot(models.Model):
         (5,'Saturday'),
         (6,'Sunday'),
     )
-    doctor_name = models.ForeignKey(User,on_delete=models.CASCADE)
+    doctor_id = models.ForeignKey(User,on_delete=models.CASCADE)
     weeks  = models.IntegerField(choices=WEEKS)
     timeslot = models.IntegerField(choices=TIMESLOT_LIST)
     slotsize=models.IntegerField(default=1)
@@ -57,10 +57,11 @@ class Slot(models.Model):
 
 
     def __int__(self):
-        return self.doctor_name
+        return self.doctor_id
 
 class Appointment(models.Model):
     STATUS = (
+        (0,'pending'),
         (1,'Completed'),
         (2,'Absent'),
         (3,'Canceled'),
@@ -77,3 +78,4 @@ class Appointment(models.Model):
     
     # def __str__(self):
     #     return self.description
+

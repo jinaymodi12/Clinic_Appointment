@@ -18,8 +18,7 @@
             <th scope="col">User</th>
             <th scope="col">Weeks</th>
             <th scope="col">TimeSlot</th>
-            <th scope="col">Description</th>
-            <th scope="col">Status</th>
+            <th scope="col">Details</th>
 
           </tr>
         </thead>
@@ -58,13 +57,14 @@
             {% elif one.timeslot == 6 %}
             <td>04:00 pm To 05:00 pm</td>
             {% endif %}
+
         <td>{{one.description}}</td>
         {% if one.status == 1 %}
-        <td>Appointment Accepted By <strong>{{one.slot.doctor_name}}</strong></td>
+        <td>Appointment Accepted  <strong>{{one.slot.doctor_id}}</strong></td>
         {% elif one.status == 2 %}
-        <td><strong>{{one.slot.doctor_name}}</strong>Is Absent Today</td>
+        <td><strong>{{one.slot.doctor_id}} </strong> Absent Today</td>
         {% elif one.status == 3 %}
-        <td><strong>{{one.slot.doctor_name}}</strong>Have Cancelled Your Appointment</td>
+        <td><strong>{{one.slot.doctor_id}} </strong> Cancelled Your Appointment</td>
         {% endif %}
         {% endfor %}
           </tr>  

@@ -15,32 +15,26 @@
 <div class="container">
   <h2>List Of Doctor</h2>
   <table class="table table-bordered">
-  <form action="{% url 'patience-view' %}">
-
     <thead>
+ 
       <tr>
-        <th>NAME</th>
-        <th>EMAIL</th>
-        <th>GENDER</th>
+        <th>Doctor Name</th>
+        <th>Email</th>
         <th>Clinic Name</th>
-        <th>SPECIALITY</th>
         <th colspan="1">Action</th>
       </tr>
     </thead>
     <tbody>
-        {% for one in many %}
-
+        {% for one in user %}
       <tr>
         <td>{{one.name}}</td>
         <td>{{one.email}}</td>
-        <td>{{one.gender}}</td>
         <td>{{one.clinic_name}}</td>
-        <td>{{one.speciality}}</td>
-        <td><a href="{% url 'appointment' one.id %}"><button class="btn btn-success"><i class=""></i>View Appointment</button></a>  </td>
+        <td><a href="{% url 'slot-detail' one.id %}"><button class="btn btn-danger"><i class=""></i>View Slot</button></a>  </td> 
         
-      </tr>
-    </form>
-      {% endfor %}
+        {% endfor %}
+ 
+      
       
     </tbody>
   </table>

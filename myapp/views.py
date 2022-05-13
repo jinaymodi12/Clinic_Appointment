@@ -6,6 +6,7 @@ from django.db.models import Q
 
 
 # Create your views here.
+#<<<<<<<<<<<<<<<<<<<<<<<< Admin >>>>>>>>>>>>>>>>>>>>>>#
 def indexx(request):
     if 'email' in request.session:
         uid = User.objects.get(email=request.session['email'])
@@ -81,6 +82,7 @@ def doctor_create(request):
             return render(request,'create_doctor.html')
     return redirect('login')
 
+     #<<<<<<<<<<<<<<<<<<<<<< Doctor >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>#
 
 def view_doctor(request):
     if 'email' in request.session:
@@ -130,17 +132,10 @@ def updates_profile(request):
 def appointment_views(request):
     if 'email' in request.session:
         uid=User.objects.get(email=request.session['email']) 
-        many=Appointment.objects.all().filter(user=uid)
-        return render(request,'appointment-view.html',{'many':many})
+        many=Appointment.objects.all()
+        return render(request,'appointment-view.html',{'many':many,'uid':uid})
     return redirect('login')
     
-   
-
-
-
-
-
-
 def patiences_create(request):
     if 'email' in request.session:
         if request.method == "POST":
@@ -194,7 +189,7 @@ def updates_patience(request,pk):
 def appointment_status(request):
     if 'email' in request.session:
         uid=User.objects.get(email=request.session['email'])
-        many = Appointment.objects.filter(Q(status=1) or Q(status=2) or Q(status=3))
+        many = Appointment.objects.filter(name=uid)
 
         print(many)
         return render(request,'appointment-status.html',{'many':many,'uid':uid})
@@ -202,20 +197,21 @@ def appointment_status(request):
 
 
 
-
+#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Slot >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>#
 
 def slot_add(request):
     if 'email' in request.session:
+        uid=Slot.objects.all()
         doctor=User.objects.get(email=request.session['email'])
-        uid=Slot.objects.filter(doctor_name=doctor)
+        # uid=Slot.objects.filter(doctor_name=doctor)
         if request.method=='POST':
          
             Slot.objects.create(
-            doctor_name = doctor,
+            doctor_id = doctor,
             weeks = request.POST['weeks'],
             timeslot = request.POST['timeslot'],
             )
-            return render(request,'slot.html',{'msg':'Slot Added Successfully!'})
+            return render(request,'slot.html',{'uid':uid,'msg':'Slot Added Successfully!'})
         else:
             return render(request,'slot.html',{'uid':uid})
     return redirect('login')
@@ -223,8 +219,8 @@ def slot_add(request):
 def view_slots(request):
     if 'email' in request.session:
         doc = User.objects.get(email=request.session['email'])
-        many = Slot.objects.all().order_by('weeks').filter(doctor_name=doc)
-        return render(request,'view-slot.html',{'many':many})
+        many = Slot.objects.all().order_by('weeks')
+        return render(request,'view-slot.html',{'many':many,'doc':doc})
     return redirect('login')
 
 def update_slots(request,pk):
@@ -264,23 +260,24 @@ def profile_patience(request):
             return render(request,'patience-edit.html',{'uid':uid})
     return redirect('login')
 
-def patience_view(request):
-    if 'email' in request.session:
-        many=User.objects.all().filter(roles='doctor')[::-1]
-        return render(request,'patience-view.html',{'many':many})
-    return redirect('login')
+def doctor_view(request):
+    user=User.objects.filter(roles='doctor')
+    return render(request,'doctor-view.html',{'user':user})
+def available_slot(request,pk):
+    user=User.objects.get(id=pk)
+    slot=Slot.objects.filter(doctor_id = user)
+    return render(request,'slot-detail.html',{'user':user,'slot':slot})
 
-def appointments(request,pk):
-    if 'email' in request.session:
-        uid=User.objects.get(email=request.session['email'])
-        data=Slot.objects.all().order_by('weeks').filter()
-        return render(request,'appointment.html',{'data':data})
-    return redirect('login')
 
+
+
+#<<<<<<<<<<<<<<<<<<<<<<<<<<<< Appointment >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>#
 def appointments_form(request,pk):
     if 'email' in request.session:
         user=User.objects.get(email=request.session['email'])
         data=Slot.objects.get(id=pk)
+        print(data)
+       
         if request.method =='POST':
             data.slotsize-=1
             data.save()
@@ -288,10 +285,6 @@ def appointments_form(request,pk):
             Appointment.objects.create(
             name=request.POST['name'],
             user=user,
-            slot=data,
-            phone=request.POST['phone'],
-            weeks=request.POST['weeks'],
-            timeslot=request.POST['timeslot'],
             description = request.POST['description'],
             )
             return render(request,'appointment-form.html',{'msg':'Appointment Send To Doctor Successfully!!','user':user,'data':data})
@@ -301,7 +294,7 @@ def appointments_form(request,pk):
 
 
 
-
+#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< status >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>#
 
 def complete_status(request,pk):
     uid = Appointment.objects.get(id=pk)

@@ -24,7 +24,7 @@
         <tbody>
             {% for one in data %}
           <tr>
-       
+       {% if data.doctor_name == pk %}
               {% if one.weeks == 0 %}
             <td>Monday</td>
             {% elif one.weeks == 1 %}
@@ -39,7 +39,9 @@
             <td>Saturday</td>
             {% else %}
             <td>Sunday</td>
+       {% endif %}
             {% endif %}
+      
 
             {% if one.timeslot == 0 %}
             <td>09:00 am To 10:00 am</td>
@@ -60,7 +62,7 @@
             <td>{{one.slotsize}}</td>
             
             {% if one.slotsize > 0 %}
-            <td><a href="{% url 'appointment-form' one.id  %}"><button class="btn btn-warning"><i class=""></i>Book</button></a>  </td>
+            <td><a href="{% url 'appointment-form' one.id %}"><button class="btn btn-warning"><i class=""></i>Book</button></a>  </td>
             {% endif %}
 
                                  
